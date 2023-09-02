@@ -18,7 +18,6 @@ struct Borrower {
     address[] public s_lenders;
     address[] public s_borrowers;
 uint256 private s_lastTimeStamp;
-    // Could we make this constant?  /* hint: no! We should make it immutable! */
     uint256 private immutable i_interval;
     uint256 private immutable i_interest_rate;
     uint256 public constant MINIMUM_USD = 0.005 * 10 ** 18;
@@ -38,7 +37,6 @@ uint256 private s_lastTimeStamp;
             msg.value >= MINIMUM_USD,
             "You need to spend more ETH!"
         );
-        // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
         s_addressToAmountLended[msg.sender] += msg.value;
         s_lenders.push(msg.sender);
     }
@@ -103,12 +101,7 @@ uint256 private s_lastTimeStamp;
                 break;
             }
         }
-        // // transfer
-        // payable(msg.sender).transfer(address(this).balance);
-        // // send
-        // bool sendSuccess = payable(msg.sender).send(address(this).balance);
-        // require(sendSuccess, "Send failed");
-        // call
+       
         (bool callSuccess, ) = payable(msg.sender).call{
             value: amount
         }("");
@@ -122,43 +115,27 @@ uint256 private s_lastTimeStamp;
         require(callSuccess, "Call failed");
     }
 
-    // function CheaperWithdraw() public onlyOwner {
-    //     address[] memory funders = s_lenders;
-    //     for (
-    //         uint256 funderIndex = 0;
-    //         funderIndex < funders.length;
-    //         funderIndex++
-    //     ) {
-    //         address funder = funders[funderIndex];
-    //         s_addressToAmountLended[funder] = 0;
-    //     }
-    //     s_lenders = new address[](0);
-    //     (bool callSuccess, ) = i_owner.call{value: address(this).balance}("");
-    //     require(callSuccess, "Call failed");
-    // }
+   
     function checkUpkeep(
-        bytes memory /* checkData */
+        bytes memory 
     )
         public
         view
         override
         returns (
             bool upkeepNeeded,
-            bytes memory /* performData */
+            bytes memory 
         )
     {
         bool timePassed = ((block.timestamp - s_lastTimeStamp) > i_interval);
         bool hasBorrowers = s_borrowers.length > 0;
         upkeepNeeded = (timePassed && hasBorrowers);
-        return (upkeepNeeded, "0x0"); // can we comment this out?
+        return (upkeepNeeded, "0x0"); 
     }
 
-    /**
-     * @dev Once `checkUpkeep` is returning `true`, this function is called
-     * and it kicks off a Chainlink VRF call to get a random winner.
-     */
+   
     function performUpkeep(
-        bytes calldata /* performData */
+        bytes calldata 
     ) external override {
         (bool upkeepNeeded, ) = checkUpkeep("");
         if (!upkeepNeeded) {
@@ -200,17 +177,7 @@ uint256 private s_lastTimeStamp;
         return i_interval;
     }
 
-    // Explainer from: https://solidity-by-example.org/fallback/
-    // Ether is sent to contract
-    //      is msg.data empty?
-    //          /   \
-    //         yes  no
-    //         /     \
-    //    receive()?  fallback()
-    //     /   \
-    //   yes   no
-    //  /        \
-    //receive()  fallback()
+   
 
     fallback() external payable {
     }
@@ -219,11 +186,4 @@ uint256 private s_lastTimeStamp;
     }
 }
 
-// Concepts we didn't cover yet (will cover in later sections)
-// 1. Enum
-// 2. Events
-// 3. Try / Catch
-// 4. Function Selector
-// 5. abi.encode / decode
-// 6. Hash with keccak256
-// 7. Yul / Assembly
+

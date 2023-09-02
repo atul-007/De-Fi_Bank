@@ -2,21 +2,16 @@
 
 import * as z from "zod";
 import axios from "axios";
-// import { MessageSquare } from "lucide-react";
+
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-// import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-// import { BotAvatar } from "@/components/bot-avatar";
-// import { Heading } from "@/components/heading";
+
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
-// import { cn } from "@/lib/utils";
-// import { Loader } from "@/components/loader";
-// import { UserAvatar } from "@/components/user-avatar";
-// import { Empty } from "@/components/ui/empty";
+
 
 import { formSchema } from "./constants";
 import React from "react";

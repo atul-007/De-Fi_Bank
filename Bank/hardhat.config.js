@@ -4,12 +4,10 @@ require("hardhat-gas-reporter")
 require("solidity-coverage")
 require("hardhat-deploy")
 require("@nomiclabs/hardhat-ethers")
-/** @type import('hardhat/config').HardhatUserConfig */
-// const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL
+
 const SEPOLIA_PRIVATE_KEY = process.env.PRIV
 const ETHERSCAN_API_KEY = process.env.API_ETHER
-// const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY
-/** @type import('hardhat/config').HardhatUserConfig */
+
 module.exports = {
     solidity: {
         compilers: [
@@ -42,7 +40,6 @@ module.exports = {
         outputFile: "gas-report.txt",
         noColors: true,
         currency: "INR",
-        // coinmarketcap: COINMARKETCAP_API_KEY,
     },
     namedAccounts: {
         deployer: {

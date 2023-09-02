@@ -87,7 +87,6 @@ const { DevelopmentChains } = require("../../helper-hardhat-config")
                   const collateraltransactionReceipt =
                       await collateraltransactionResponse.wait(1)
                   const collateral = await fundMe.getAddressToBorrower(deployer)
-                  //   const borrow = await fundMe.borrow(30)
                   await expect(fundMe.borrow(30)).to.be.revertedWith(
                       "You need more collateral to borrow more"
                   )
